@@ -1,9 +1,6 @@
 import random
 import matplotlib.pyplot as plt
 
-# Define the number of runs (iterations) for the simulation
-runs = 1000000
-
 
 # Define a class to represent a card
 class Card(object):
@@ -26,19 +23,19 @@ class Card(object):
 
 
 # Function to draw five random cards from the deck
-def draw_five_cards(deck):
+def draw_cards(deck, num_cards):
     # Draw 5 random cards without duplicates
-    five_cards = random.sample(deck, 5)
+    five_cards = random.sample(deck, num_cards)
     print(five_cards)
     return five_cards
 
 
 # Function to check if a hand is a Royal Flush
-def is_royal_flush(five_cards):
+def is_royal_flush(five_cards, max_rank):
     first_color = five_cards[0]._color
     # Check if all cards have the same color and are the top 5 ranks
     return all(card._color == first_color for card in five_cards) and \
-        all(card._rank in {8, 9, 10, 11, 12} for card in five_cards)
+        all(card._rank in [rank for rank in range(max_rank+1-len(five_cards), max_rank+1)] for card in five_cards)
 
 
 # Function to check if a hand is a Straight Flush
@@ -110,6 +107,11 @@ if __name__ == '__main__':
     # Create a deck with all possible card combinations (52 cards)
     deck = [Card(color, rank) for color in range(4) for rank in range(13)]
 
+    max_rank = max(card._rank for card in deck)
+
+    # Define the number of runs (iterations) for the simulation
+    runs = int(input("How many runs would you like to simulate? "))
+
     # Dictionary to store counts of each poker hand ranking
     poker_hand_rankings = {
         "Royal Flush": 0,
@@ -126,10 +128,10 @@ if __name__ == '__main__':
 
     # Run the simulation to draw hands and classify them
     for _ in range(runs):
-        five_cards = draw_five_cards(deck)
+        five_cards = draw_cards(deck, 5)
 
         # Check for each hand ranking in order of priority
-        if is_royal_flush(five_cards):
+        if is_royal_flush(five_cards, max_rank):
             poker_hand_rankings["Royal Flush"] += 1
         elif is_straight_flush(five_cards):
             poker_hand_rankings["Straight Flush"] += 1
@@ -168,9 +170,9 @@ if __name__ == '__main__':
 
     # Display percentages above each bar
     for bar, count in zip(bars, counts):
-        percentage = round(count / runs * 100, 2)  # Calculate and round the percentage
+        percentage = count / runs * 100  # Calculate the percentage
         plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(),
-                 f"{percentage}%", ha='center', va='bottom')  # Display the formatted percentage
+                 f"{percentage:.2f}%", ha='center', va='bottom')  # Display the formatted percentage
 
     # Show the bar chart
     plt.show()
