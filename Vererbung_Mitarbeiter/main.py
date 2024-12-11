@@ -75,32 +75,32 @@ class Firma:
             "Female": female_count / total_mitarbeiter * 100,
         }
 
+if __name__ == "__main__":
+    # Beispiel zur Nutzung der Klassen
+    firma = Firma("Cola")
 
-# Beispiel zur Nutzung der Klassen
-firma = Firma("Cola")
+    # Abteilungen erstellen
+    entwicklung = Abteilung("Entwicklung")
+    vertrieb = Abteilung("Vertrieb")
 
-# Abteilungen erstellen
-entwicklung = Abteilung("Entwicklung")
-vertrieb = Abteilung("Vertrieb")
+    firma.add_abteilung(entwicklung)
+    firma.add_abteilung(vertrieb)
 
-firma.add_abteilung(entwicklung)
-firma.add_abteilung(vertrieb)
+    # Mitarbeiter und Abteilungsleiter erstellen
+    m1 = Mitarbeiter("Alice", "Female", entwicklung)
+    m2 = Mitarbeiter("Bob", "Male", entwicklung)
+    m3 = Mitarbeiter("Charlie", "Male", vertrieb)
 
-# Mitarbeiter und Abteilungsleiter erstellen
-m1 = Mitarbeiter("Alice", "Female", entwicklung)
-m2 = Mitarbeiter("Bob", "Male", entwicklung)
-m3 = Mitarbeiter("Charlie", "Male", vertrieb)
+    leiter_entwicklung = Abteilungsleiter("Diana", "Female", entwicklung)
 
-leiter_entwicklung = Abteilungsleiter("Diana", "Female", entwicklung)
+    # Ergebnisse
+    print(f"Anzahl der Mitarbeiter: {firma.get_mitarbeiter_count()}")
+    print(f"Anzahl der Abteilungsleiter: {firma.get_abteilungsleiter_count()}")
+    print(f"Anzahl der Abteilungen: {firma.get_abteilungen_count()}")
 
-# Ergebnisse
-print(f"Anzahl der Mitarbeiter: {firma.get_mitarbeiter_count()}")
-print(f"Anzahl der Abteilungsleiter: {firma.get_abteilungsleiter_count()}")
-print(f"Anzahl der Abteilungen: {firma.get_abteilungen_count()}")
+    largest_abt = firma.get_largest_abteilung()
+    if largest_abt:
+        print(f"Größte Abteilung: {largest_abt.name} mit {largest_abt.get_mitarbeiter_count()} Mitarbeitern")
 
-largest_abt = firma.get_largest_abteilung()
-if largest_abt:
-    print(f"Größte Abteilung: {largest_abt.name} mit {largest_abt.get_mitarbeiter_count()} Mitarbeitern")
-
-gender_dist = firma.get_gender_distribution()
-print(f"Geschlechterverteilung: {gender_dist['Male']:.2f}% Männer, {gender_dist['Female']:.2f}% Frauen")
+    gender_dist = firma.get_gender_distribution()
+    print(f"Geschlechterverteilung: {gender_dist['Male']:.2f}% Männer, {gender_dist['Female']:.2f}% Frauen")
