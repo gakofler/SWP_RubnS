@@ -43,7 +43,8 @@ class Abteilung:
 
 
 class Firma:
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.abteilungen = []
 
     def add_abteilung(self, abteilung):
@@ -76,7 +77,7 @@ class Firma:
 
 
 # Beispiel zur Nutzung der Klassen
-firma = Firma()
+firma = Firma("Cola")
 
 # Abteilungen erstellen
 entwicklung = Abteilung("Entwicklung")
