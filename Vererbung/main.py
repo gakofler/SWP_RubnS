@@ -67,7 +67,7 @@ class HybridAuto(ElektroAuto, Auto):
 
 if __name__ == "__main__":
     # Erstellung von Beispielinstanzen
-    fahrzeug = Fahrzeug("Generic", "FZ100")
+    fahrzeug = Fahrzeug("PistenBully", "600 Select")
     auto = Auto("BMW", "3er", 4)
     motorrad = Motorrad("Kawasaki", "Ninja", 650)
     elektroauto = ElektroAuto("Tesla", "Model 3", 4, 75)
