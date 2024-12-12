@@ -1,3 +1,10 @@
+from enum import Enum
+
+
+class Gender(Enum):
+    MALE = "Male"
+    FEMALE = "Female"
+
 class Person:
     def __init__(self, name, gender):
         self.name = name
@@ -60,20 +67,21 @@ class Firma:
         return len(self.abteilungen)
 
     def get_largest_abteilung(self):
-        return max(self.abteilungen, key=lambda abt: abt.get_mitarbeiter_count(), default=None)
+        return max(self.abteilungen, key=lambda abt: abt.get_mitarbeiter_count())
 
     def get_gender_distribution(self):
         total_mitarbeiter = self.get_mitarbeiter_count()
         if total_mitarbeiter == 0:
             return {"Male": 0, "Female": 0}
         male_count = sum(
-            1 for abt in self.abteilungen for mit in abt.mitarbeiter if mit.gender.lower() == "male"
+            1 for abt in self.abteilungen for mit in abt.mitarbeiter if mit.gender == Gender.MALE
         )
         female_count = total_mitarbeiter - male_count
         return {
             "Male": male_count / total_mitarbeiter * 100,
             "Female": female_count / total_mitarbeiter * 100,
         }
+
 
 if __name__ == "__main__":
     # Beispiel zur Nutzung der Klassen
@@ -87,11 +95,11 @@ if __name__ == "__main__":
     firma.add_abteilung(vertrieb)
 
     # Mitarbeiter und Abteilungsleiter erstellen
-    m1 = Mitarbeiter("Alice", "Female", entwicklung)
-    m2 = Mitarbeiter("Bob", "Male", entwicklung)
-    m3 = Mitarbeiter("Charlie", "Male", vertrieb)
+    m1 = Mitarbeiter("Alice", Gender.FEMALE, entwicklung)
+    m2 = Mitarbeiter("Bob", Gender.MALE, entwicklung)
+    m3 = Mitarbeiter("Charlie", Gender.MALE, vertrieb)
 
-    leiter_entwicklung = Abteilungsleiter("Diana", "Female", entwicklung)
+    leiter_entwicklung = Abteilungsleiter("Diana", Gender.FEMALE, entwicklung)
 
     # Ergebnisse
     print(f"Anzahl der Mitarbeiter: {firma.get_mitarbeiter_count()}")
