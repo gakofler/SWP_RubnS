@@ -1,9 +1,11 @@
+import functools
 import random
 import time
 import matplotlib.pyplot as plt
 
 # Zeitmesser-Decorator
 def time_it(func):
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.time()
         result = func(*args, **kwargs)
