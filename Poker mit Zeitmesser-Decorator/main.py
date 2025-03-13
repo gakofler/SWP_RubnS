@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 # Zeitmesser-Decorator
 def time_it(func):
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper_time_it(*args, **kwargs):
         start_time = time.time()
         result = func(*args, **kwargs)
         end_time = time.time()
         print(f"{func.__name__} dauerte {end_time - start_time:.6f} Sekunden")
         return result
-    return wrapper
+    return wrapper_time_it
 
 # Define a class to represent a card
 class Card(object):
